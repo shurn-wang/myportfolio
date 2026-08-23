@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幕布场记板动画</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="stage">
+        <!-- 左侧 WELCOME 文字 替换 PORTFOLIO.png -->
+        <div class="portfolio" id="portfolio">
+            <div class="welcome-text">WELCOME</div>
+        </div>
+        <!-- 右下角联系文字 -->
+        <div class="contact-info" id="contactInfo">
+            <p>电话：13062166905</p>
+            <p>邮箱：wangshurn@foxmail.com</p>
+            <p>微信：W‑ShuRan</p>
+        </div>
+        <!-- 帘子画布 -->
+        <canvas id="curtainCanvas"></canvas>
+        
+        <!-- 场记板容器 -->
+        <div class="clapperboard" id="clapperboard">
+            <img src="assets/About/cjb1.svg" alt="场记板底座" class="clapper-base">
+            <img src="assets/About/cjb2.svg" alt="场记板翻盖" class="clapper-flap">
+        </div>
+        <!-- About me 文字（场记板下方，替换About me.png） -->
+        <div class="about-me" id="aboutMe">
+            <div class="aboutme-text">About me</div>
+        </div>
+        <!-- zwjs 图片【zwjs.svg，路径更新为assets/About】 + 内部漂浮图 edu / skill -->
+        <div class="zwjs" id="zwjs">
+            <img src="assets/About/zwjs.svg" alt="zwjs" class="zwjs-main">
+            <div class="float-img edu-img" id="eduImg">
+                <img src="assets/About/edu.png" alt="edu">
+            </div>
+            <div class="float-img skill-img" id="skillImg">
+                <img src="assets/About/skill.png" alt="skill">
+            </div>
+        </div>
+        <!-- char 图片（从右侧划入） -->
+        <div class="char-img" id="charImg">
+            <img src="assets/About/char.png" alt="char">
+        </div>
+        <!-- ========== Works 页面（作品展示） ========== -->
+        <div class="work-page" id="workPage">
+            <!-- 图片 1~4：静态展示图 -->
+            <div class="work-img work-img-1">
+                <img src="assets/Works/1.png" alt="作品1">
+            </div>
+            <div class="work-img work-img-2">
+                <img src="assets/Works/2.png" alt="作品2">
+            </div>
+            <div class="work-img work-img-3">
+                <img src="assets/Works/3.png" alt="作品3">
+            </div>
+            <div class="work-img work-img-4">
+                <img src="assets/Works/4.png" alt="作品4">
+            </div>
+            <!-- 图片 5~10：可点击打开画廊 -->
+            <div class="work-img work-img-5 work-hover" data-folder="5">
+                <img src="assets/Works/5.png" alt="作品5">
+            </div>
+            <div class="work-img work-img-6 work-hover" data-folder="6">
+                <img src="assets/Works/6.png" alt="作品6">
+            </div>
+            <div class="work-img work-img-7 work-hover" data-folder="7">
+                <img src="assets/Works/7.png" alt="作品7">
+            </div>
+            <div class="work-img work-img-8 work-hover" data-folder="8">
+                <img src="assets/Works/8.png" alt="作品8">
+            </div>
+            <div class="work-img work-img-9 work-hover" data-folder="9">
+                <img src="assets/Works/9.png" alt="作品9">
+            </div>
+            <div class="work-img work-img-10 work-hover" data-folder="10">
+                <img src="assets/Works/10.png" alt="作品10">
+            </div>
+            <!-- more…文字：替换more.png 点击进入 more 页面 -->
+            <div class="work-img work-img-more" id="moreBtn">
+                <div class="morebtn-text">more…</div>
+            </div>
+        </div>
+        <!-- ========== More 页面（点击 more…进入） ========== -->
+        <div class="more-page" id="morePage">
+            <div class="more-text">敬请期待</div>
+        </div>
+        <!-- ========== 画廊灯箱（点击 5~10 图片弹出） ========== -->
+        <div class="gallery-overlay" id="galleryOverlay">
+            <!-- 关闭按钮 -->
+            <div class="gallery-close" id="galleryClose" title="关闭">×</div>
+            <!-- 左箭头 -->
+            <div class="gallery-arrow gallery-prev" id="galleryPrev" title="上一张">‹</div>
+            <!-- 右箭头 -->
+            <div class="gallery-arrow gallery-next" id="galleryNext" title="下一张">›</div>
+            <!-- 图片滑动视窗 -->
+            <div class="gallery-viewport" id="galleryViewport">
+                <div class="gallery-track" id="galleryTrack"></div>
+            </div>
+            <!-- 小圆点指示器 -->
+            <div class="gallery-dots" id="galleryDots"></div>
+        </div>
+        <!-- ========== Contact 页面（联系页） ========== -->
+        <div class="connect-page" id="connectPage">
+            <!-- char2 图片【路径更新assets/Contact】 -->
+            <div class="connect-char2" id="connectChar2">
+                <img src="assets/Contact/char2.png" alt="char2">
+            </div>
+            <!-- 场记板（底座 cjb1 + 翻盖 cjb2），点击可开关【路径更新assets/Contact】 -->
+            <div class="connect-clapperboard" id="connectClapperboard">
+                <img src="assets/Contact/cjb1.svg" alt="场记板底座" class="connect-clapper-base">
+                <img src="assets/Contact/cjb2.svg" alt="场记板翻盖" class="connect-clapper-flap">
+            </div>
+            <!-- 联系文字（电话/邮箱/微信） -->
+            <div class="connect-text">
+                <p>电话：13062166905</p>
+                <p>邮箱：wangshurn@foxmail.com</p>
+                <p>微信：W‑ShuRan</p>
+            </div>
+        </div>
+        <!-- 右上角导航：替换图片为文本 About / Works / Contact -->
+        <div class="nav" id="nav">
+            <div class="nav-item" data-page="About">
+                <div class="nav-label">About</div>
+            </div>
+            <div class="nav-item" data-page="Works">
+                <div class="nav-label">Works</div>
+            </div>
+            <div class="nav-item" data-page="Contact">
+                <div class="nav-label">Contact</div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

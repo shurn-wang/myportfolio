@@ -1,0 +1,741 @@
+/* ================================================================ */
+/* ========== 自定义字体（字体文件位于 assets/fonts/） ========== */
+/* ================================================================ */
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../assets/fonts/CustomFont.woff2') format('woff2'),
+         url('../assets/fonts/CustomFont.woff') format('woff'),
+         url('../assets/fonts/CustomFont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+/* 微软雅黑字体msyh */
+@font-face {
+    font-family: 'msyh';
+    src: url('../assets/fonts/msyh.ttc') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+/* BOOKOS字体 用于WELCOME、导航文字 */
+@font-face {
+    font-family: 'BOOKOS';
+    src: url('../assets/fonts/BOOKOS.woff2') format('woff2'),
+         url('../assets/fonts/BOOKOS.woff') format('woff'),
+         url('../assets/fonts/BOOKOS.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+/* ChuanQiTeZhan字体：用于About me、more… */
+@font-face {
+    font-family: 'ChuanQiTeZhan';
+    src: url('../assets/fonts/ChuanQiTeZhan.woff2') format('woff2'),
+         url('../assets/fonts/ChuanQiTeZhan.woff') format('woff'),
+         url('../assets/fonts/ChuanQiTeZhan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: "Microsoft YaHei", sans-serif;
+}
+.stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #bb240A;
+}
+/* ========== 左侧 WELCOME文字（替换PORTFOLIO.png） ========== */
+.portfolio {
+    position: absolute;
+    left: 5%;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 3;
+    transition: opacity 0.6s ease;
+    opacity: 1;
+}
+.welcome-text{
+    font-family: 'BOOKOS', sans-serif;
+    font-size: clamp(48px,5vw,120px); /* 最小值,动态值,最大值 */
+    color:#131313;
+    letter-spacing:0.02em;
+}
+
+.portfolio.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+/* ========== 右下角联系文字 字体改为msyh ========== */
+.contact-info {
+    position: absolute;
+    right: 1%;
+    bottom: 2%;
+    text-align: left;
+    color: #222;
+    font-size: 1rem;
+    line-height: 1.9;
+    z-index: 3;
+    transition: opacity 0.6s ease;
+    opacity: 1;
+    font-family:'msyh',sans-serif;
+}
+.contact-info p {
+    margin: 0;
+}
+.contact-info.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+/* Canvas 帘子层 */
+#curtainCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    cursor: pointer;
+}
+/* ========== 场记板容器 ========== */
+.clapperboard {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    width: 12.5vw;
+    min-width: 100px;
+    max-width: 200px;
+    opacity: 0;
+    transform: translate(-50%, -120vh) rotate(0deg);
+    z-index: 1;
+    cursor: pointer;
+}
+.clapperboard.active {
+    animation: dropSpin 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.clapper-base, .clapper-flap {
+    width: 100%;
+    display: block;
+}
+.clapper-base {
+    position: relative;
+    z-index: 2;
+}
+.clapper-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 20px 40px;
+    transform: rotate(-35deg);
+    z-index: 1;
+    transition: transform 0.4s ease-in-out;
+}
+.clapperboard.active .clapper-flap {
+    animation: flapCloseOpen 0.8s ease-in-out 1.6s forwards;
+}
+.clapperboard.closed .clapper-flap {
+    animation: none !important;
+    transform: rotate(0deg);
+}
+@keyframes dropSpin {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -120vh) rotate(0deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(720deg);
+    }
+}
+@keyframes flapCloseOpen {
+    0% {
+        transform: rotate(-35deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-35deg);
+    }
+}
+/* ========== About me文字（替换About me.png，传奇特战体） ========== */
+.about-me {
+    position: absolute;
+    top: 66%;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+}
+.aboutme-text{
+    font-family:'ChuanQiTeZhan',sans-serif;
+    font-size:2.7vw;
+    color:#ffffff;
+    letter-spacing:0.08em;
+}
+.about-me.visible {
+    opacity: 0.95;
+    transform: translateX(-50%) translateY(0);
+}
+/* ========== zwjs 图片 ========== */
+.zwjs {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55vw;
+    min-width: 250px;
+    max-width: 800px;
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+.zwjs.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+.zwjs-main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: block;
+    --shadow-offset-x: 8px;
+    --shadow-offset-y: 10px;
+    --shadow-blur: 1px;
+    --shadow-spread: 2px;
+    --shadow-color: rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.4s ease;
+}
+.zwjs:hover .zwjs-main {
+    box-shadow:
+        var(--shadow-offset-x)
+        var(--shadow-offset-y)
+        var(--shadow-blur)
+        var(--shadow-spread)
+        var(--shadow-color);
+}
+.float-img {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 1;
+}
+.float-img img {
+    width: 100%;
+    display: block;
+}
+.edu-img {
+    top: 60%;
+    left: -20%;
+    width: 50%;
+    opacity: 0.95;
+    animation: floatEdu 6s ease-in-out infinite;
+}
+@keyframes floatEdu {
+    0%, 100% { transform: translate(0, 0); }
+    25%      { transform: translate(8px, -6px); }
+    50%      { transform: translate(-4px, 8px); }
+    75%      { transform: translate(-8px, -3px); }
+}
+.skill-img {
+    top: -4%;
+    right: -4%;
+    width: 20%;
+    opacity: 0.95;
+    animation: floatSkill 7s ease-in-out infinite;
+}
+@keyframes floatSkill {
+    0%, 100% { transform: translate(0, 0); }
+    25%      { transform: translate(-7px, 5px); }
+    50%      { transform: translate(6px, -8px); }
+    75%      { transform: translate(7px, 4px); }
+}
+/* ========== char 图片 ========== */
+.char-img {
+    position: absolute;
+    top: 58%;
+    right: 0.5%;
+    transform: translateX(20vw) translateY(-50%);
+    width: 18vw;
+    min-width: 150px;
+    max-width: 400px;
+    z-index: 4;
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+    pointer-events: none;
+}
+.char-img img {
+    width: 100%;
+    display: block;
+}
+.char-img.visible {
+    transform: translateX(0) translateY(-50%);
+    opacity: 1;
+}
+/* ================================================================ */
+/* ========== Works 页面 ========== */
+/* ================================================================ */
+.work-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #bb240A;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    overflow: hidden;
+}
+.work-page.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.work-img {
+    position: absolute;
+    transform-origin: center center;
+}
+.work-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.work-img-1,.work-img-2,.work-img-3,.work-img-4 {
+    pointer-events: none;
+}
+.work-img-1 img,.work-img-2 img,.work-img-3 img,.work-img-4 img{
+    height: 100%;
+    object-fit: contain;
+}
+.work-img-1 {
+    --rotate-angle: -5deg;
+    left: 40%;
+    top: 98%;
+    width: 100vw;
+    height: 100vh;
+    opacity: 1;
+    z-index: 2;
+    transform: rotate(var(--rotate-angle));
+}
+.work-img-2 {
+    --rotate-angle: -1.5deg;
+    left: -10%;
+    top: -98%;
+    width: 110vw;
+    height: 110vh;
+    opacity: 1;
+    z-index: 3;
+    transform: rotate(var(--rotate-angle));
+}
+.work-img-3 {
+    --rotate-angle: 1deg;
+    left: 0%;
+    top: -100%;
+    width: 115vw;
+    height: 115vh;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(var(--rotate-angle));
+}
+.work-img-4 {
+    --rotate-angle: 1deg;
+    left: -5%;
+    top: -108%;
+    width: 115vw;
+    height: 115vh;
+    opacity: 1;
+    z-index: 4;
+    transform: rotate(var(--rotate-angle));
+}
+.work-hover {
+    --hover-scale: 1.2;
+    --hover-translate-y: 20px;
+    --hover-transition: 0.4s;
+    transition: transform var(--hover-transition) ease;
+    cursor: pointer;
+}
+.work-hover:hover {
+    transform: rotate(var(--rotate-angle)) translateY(var(--hover-translate-y)) scale(var(--hover-scale));
+    z-index: 10;
+}
+.work-img-5 {
+    --rotate-angle: -4deg;
+    left: 8%;
+    top: 10%;
+    width: 8.5vw;
+    opacity: 1;
+    z-index: 3;
+    transform: rotate(var(--rotate-angle));
+}
+.work-img-6 {
+    --rotate-angle: 3deg;
+    left: 23%;
+    top: 10%;
+    width: 8.5vw;
+    opacity: 1;
+    z-index: 2;
+    transform: rotate(var(--rotate-angle));
+}
+.work-img-7 {
+    --rotate-angle: 1deg;
+    left: 83%;
+    top: 10%;
+    width: 8.5vw;
+    opacity: 1;
+    z-index: 5;
+    transform: rotate(var(--rotate-angle));
+}
+.work-img-8 {
+    --rotate-angle: 4deg;
+    left: 53%;
+    top: 10%;
+    width: 8.5vw;
+    opacity: 1;
+    z-index: 1;
+    transform: rotate(var(--rotate-angle));
+}
+.work-img-9 {
+    --rotate-angle: -3deg;
+    left: 68%;
+    top: 10%;
+    width: 8.5vw;
+    opacity: 1;
+    z-index: 3;
+    transform: rotate(var(--rotate-angle));
+}
+.work-img-10 {
+    --rotate-angle: -2deg;
+    left: 38%;
+    top: 10%;
+    width: 8vw;
+    opacity: 1;
+    z-index: 4;
+    transform: rotate(var(--rotate-angle));
+}
+/* more…文字替换more.png，传奇特战体 */
+.work-img-more {
+    --rotate-angle: 0deg;
+    left: 45%;
+    top: 90%;
+    width: 6vw;
+    opacity: 0.95;
+    z-index: 6;
+    cursor: pointer;
+    transform: rotate(var(--rotate-angle));
+    transition: transform 0.3s ease;
+}
+.morebtn-text{
+    font-family:'ChuanQiTeZhan',sans-serif;
+    font-size:2.4vw;
+    color:#ffffff;
+}
+.work-img-more:hover {
+    transform: rotate(var(--rotate-angle)) scale(1.1);
+}
+/* ================================================================ */
+/* ========== More 页面 敬请期待字体改为msyh ========== */
+/* ================================================================ */
+.more-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.more-page.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.more-text {
+    font-size: 3rem;
+    color: #ffffff;
+    letter-spacing: 0.5em;
+    text-align: center;
+    user-select: none;
+    font-family:'msyh',sans-serif;
+}
+/* ================================================================ */
+/* ========== 画廊灯箱 ========== */
+/* ================================================================ */
+.gallery-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.gallery-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.gallery-close {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    font-size: 36px;
+    color: #ffffff;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 102;
+    user-select: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0.7;
+}
+.gallery-close:hover {
+    transform: scale(1.15);
+    opacity: 1;
+}
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 56px;
+    font-size: 48px;
+    color: #ffffff;
+    line-height: 52px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 102;
+    user-select: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0.6;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+}
+.gallery-arrow:hover {
+    transform: translateY(-50%) scale(1.15);
+    opacity: 1;
+}
+.gallery-prev {
+    left: 24px;
+}
+.gallery-next {
+    right: 24px;
+}
+.gallery-viewport {
+    position: relative;
+    width: 70vw;
+    max-width: 900px;
+    height: 70vh;
+    overflow: hidden;
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gallery-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+.gallery-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gallery-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+.gallery-dots {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 102;
+    max-width: 80vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 8px;
+    scrollbar-width: none;
+}
+.gallery-dots::-webkit-scrollbar {
+    display: none;
+}
+.gallery-dot {
+    --dot-size: 10px;
+    --dot-color: rgba(255, 255, 255, 0.4);
+    --dot-active-color: #ffffff;
+    flex: 0 0 auto;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 50%;
+    background: var(--dot-color);
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+.gallery-dot:hover {
+    transform: scale(1.3);
+}
+.gallery-dot.active {
+    background: var(--dot-active-color);
+    transform: scale(1.3);
+}
+/* ================================================================ */
+/* ========== Contact 页面 ========== */
+/* ================================================================ */
+.connect-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #bb240A;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    overflow: hidden;
+}
+.connect-page.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.connect-char2 {
+    --rotate-angle: 0deg;
+    position: absolute;
+    left: 15%;
+    top: 105%;
+    transform: translateY(-50%) rotate(var(--rotate-angle));
+    width: 35vw;
+    min-width: 150px;
+    max-width: 800px;
+    opacity: 1;
+    z-index: 2;
+}
+.connect-char2 img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.connect-clapperboard {
+    position: absolute;
+    left: 58%;
+    top: 57%;
+    transform: translate(-50%, -50%);
+    width: 30vw;
+    min-width: 120px;
+    max-width: 500px;
+    z-index: 3;
+    cursor: pointer;
+}
+.connect-clapper-base {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+.connect-clapper-flap {
+    --open-angle: -25deg;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 35px 90px;
+    transform: rotate(var(--open-angle));
+    z-index: 1;
+    transition: transform 0.4s ease-in-out;
+}
+.connect-clapperboard.closed .connect-clapper-flap {
+    transform: rotate(0deg);
+}
+.connect-text {
+    position: absolute;
+    left: 58%;
+    top: 56.5%;
+    transform: translateX(-50%);
+    text-align: left;
+    color: #ffffff;
+    font-family: 'msyh', "Microsoft YaHei", sans-serif;
+    font-size: 1.2rem;
+    line-height: 2;
+    z-index: 4;
+    letter-spacing: 0.05em;
+    line-height: 2.5;
+}
+.connect-text p {
+    margin: 0;
+}
+/* ========== 右上角导航：文字导航 BOOKOS字体 ========== */
+.nav {
+    position: absolute;
+    top: 3%;
+    right: 2%;
+    display: flex;
+    gap: 24px;
+    flex-direction: row;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+.nav.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+.nav-item {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+.nav-item.active {
+    opacity: 1;
+}
+.nav-label{
+    font-family:'BOOKOS',sans-serif;
+    font-size:1.5vw;
+    color:#ffffff;
+    letter-spacing:0.06em;
+}
