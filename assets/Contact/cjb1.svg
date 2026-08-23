@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 10px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #fff;
+        font-family: MicrosoftYaHei, 'Microsoft YaHei';
+      }
+
+      .cls-3, .cls-2 {
+        isolation: isolate;
+      }
+
+      .cls-3, .cls-4 {
+        display: none;
+      }
+
+      .cls-2 {
+        font-size: 7px;
+      }
+
+      .cls-4, .cls-5 {
+        fill: #f2f2f2;
+      }
+
+      .cls-6 {
+        fill: #1a1a1a;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.6.0, SVG Export Plug-In . SVG Version: 1.2.0 Build 709)  -->
+  <g>
+    <g id="_图层_1" data-name="图层_1">
+      <g id="_图层_1-2" data-name="_图层_1">
+        <g id="_图层_1-2">
+          <g id="_图层_1-2-2" data-name="_图层_1-2">
+            <g id="_图层_1-2-2">
+              <rect class="cls-6" y="50.3" width="200" height="125" rx="9.4" ry="9.4"/>
+              <rect y="50.4" width="200" height="21.4"/>
+              <polygon class="cls-5" points="193 71.9 178.6 71.9 171.4 50.4 185.8 50.4 193 71.9"/>
+              <polygon class="cls-5" points="169 71.9 154.7 71.9 147.5 50.4 161.8 50.4 169 71.9"/>
+              <polygon class="cls-5" points="145.1 71.9 130.7 71.9 123.5 50.4 137.9 50.4 145.1 71.9"/>
+              <polygon class="cls-5" points="121.1 71.9 106.8 71.9 99.6 50.4 113.9 50.4 121.1 71.9"/>
+              <polygon class="cls-5" points="97.2 71.9 82.8 71.9 75.6 50.4 90 50.4 97.2 71.9"/>
+              <polygon class="cls-5" points="74.3 71.9 59.9 71.9 52.7 50.4 67.1 50.4 74.3 71.9"/>
+              <polygon class="cls-5" points="49.3 71.9 34.9 71.9 27.7 50.4 42.1 50.4 49.3 71.9"/>
+              <polygon class="cls-6" points="40.6 69.5 2.8 69.5 2.8 32 21.7 32 40.6 50.8 40.6 69.5"/>
+              <circle class="cls-5" cx="11.9" cy="39.7" r="2.9"/>
+              <circle class="cls-5" cx="11.9" cy="62.6" r="2.9"/>
+              <circle class="cls-5" cx="32.6" cy="62.6" r="2.9"/>
+              <rect class="cls-5" x="14.5" y="114.1" width="171.3" height=".8"/>
+              <rect class="cls-5" x="14.7" y="136" width="171.3" height=".8"/>
+              <rect class="cls-5" x="14.7" y="157.8" width="171.3" height=".9"/>
+              <rect class="cls-4" x="101.9" y="96.3" width=".8" height="29.1"/>
+              <rect class="cls-4" x="72.2" y="96.3" width=".8" height="29.1"/>
+              <rect class="cls-4" x="144.2" y="96.3" width=".9" height="29.1"/>
+            </g>
+          </g>
+          <g class="cls-3">
+            <g class="cls-3">
+              <text class="cls-2" transform="translate(20.8 105.9)"><tspan x="0" y="0">电话：</tspan></text>
+            </g>
+          </g>
+          <g class="cls-3">
+            <g class="cls-3">
+              <text class="cls-2" transform="translate(45.1 105.9)"><tspan x="0" y="0">13062166905</tspan></text>
+            </g>
+          </g>
+          <g class="cls-3">
+            <g class="cls-3">
+              <text class="cls-2" transform="translate(45.1 128.2)"><tspan x="0" y="0">wangshurn@foxmail.com</tspan></text>
+            </g>
+          </g>
+          <g class="cls-3">
+            <g class="cls-3">
+              <text class="cls-2" transform="translate(45.1 149.8)"><tspan x="0" y="0">W-ShuRan</tspan></text>
+            </g>
+          </g>
+          <g class="cls-3">
+            <g class="cls-3">
+              <text class="cls-2" transform="translate(21.2 128.2)"><tspan x="0" y="0">邮箱：</tspan></text>
+            </g>
+          </g>
+          <g class="cls-3">
+            <g class="cls-3">
+              <text class="cls-2" transform="translate(21.7 149.8)"><tspan x="0" y="0">微信：</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <text class="cls-1" transform="translate(14.4 86.6)"><tspan x="0" y="0">联系我</tspan></text>
+    </g>
+  </g>
+</svg>

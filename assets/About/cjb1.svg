@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f2f2f2;
+      }
+
+      .cls-2 {
+        fill: #1a1a1a;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.6.0, SVG Export Plug-In . SVG Version: 1.2.0 Build 709)  -->
+  <g>
+    <g id="_图层_1" data-name="图层_1">
+      <g id="_图层_1-2" data-name="_图层_1">
+        <rect class="cls-2" y="50.34" width="200" height="124.97" rx="9.45" ry="9.45"/>
+        <rect y="50.43" width="200" height="21.44"/>
+        <polygon class="cls-1" points="192.98 71.87 178.6 71.87 171.41 50.43 185.79 50.43 192.98 71.87"/>
+        <polygon class="cls-1" points="169.03 71.87 154.66 71.87 147.47 50.43 161.84 50.43 169.03 71.87"/>
+        <polygon class="cls-1" points="145.09 71.87 130.71 71.87 123.52 50.43 137.9 50.43 145.09 71.87"/>
+        <polygon class="cls-1" points="121.14 71.87 106.76 71.87 99.58 50.43 113.95 50.43 121.14 71.87"/>
+        <polygon class="cls-1" points="97.19 71.87 82.82 71.87 75.63 50.43 90.01 50.43 97.19 71.87"/>
+        <polygon class="cls-1" points="74.27 71.87 59.9 71.87 52.71 50.43 67.09 50.43 74.27 71.87"/>
+        <polygon class="cls-1" points="49.3 71.87 34.93 71.87 27.74 50.43 42.11 50.43 49.3 71.87"/>
+        <polygon class="cls-2" points="40.6 69.53 2.83 69.53 2.83 31.97 21.71 31.97 40.6 50.75 40.6 69.53"/>
+        <circle class="cls-1" cx="11.85" cy="39.72" r="2.86"/>
+        <circle class="cls-1" cx="11.85" cy="62.64" r="2.86"/>
+        <circle class="cls-1" cx="32.64" cy="62.64" r="2.86"/>
+        <rect class="cls-1" x="14.5" y="96.27" width="171.26" height=".85"/>
+        <rect class="cls-1" x="14.71" y="124.5" width="171.26" height=".85"/>
+        <rect class="cls-1" x="14.71" y="152.73" width="171.26" height=".85"/>
+        <rect class="cls-1" x="101.93" y="96.27" width=".85" height="29.07"/>
+        <rect class="cls-1" x="59.7" y="96.28" width=".85" height="29.07"/>
+        <rect class="cls-1" x="144.16" y="96.27" width=".85" height="29.07"/>
+      </g>
+    </g>
+  </g>
+</svg>
