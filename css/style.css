@@ -269,7 +269,7 @@ html, body {
 /* ========== 简历下载按钮 ========== */
 .resume-download {
     position: absolute;
-    top: 84.5%;
+    top: 84.8%;
     right: 23.7%;
     z-index: 4;
     opacity: 0;
@@ -278,7 +278,7 @@ html, body {
     font-family: 'msyh', sans-serif;
     color: #ffffff;
     text-align: right;
-    line-height: 1.5;
+    line-height: 1.3;
     letter-spacing: 0.08em;
 }
 .resume-download.visible {
