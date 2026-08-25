@@ -6,6 +6,7 @@ const contactInfo = document.getElementById('contactInfo');
 const aboutMe = document.getElementById('aboutMe');
 const zwjs = document.getElementById('zwjs');
 const charImg = document.getElementById('charImg');
+const resumeDownload = document.getElementById('resumeDownload');
 const workPage = document.getElementById('workPage');
 const morePage = document.getElementById('morePage');
 const moreBtn = document.getElementById('moreBtn');
@@ -195,6 +196,7 @@ function onClapperboardClick() {
     setTimeout(() => {
         zwjs.classList.add('visible');
         charImg.classList.add('visible');
+        resumeDownload.classList.add('visible');
         currentState = 'zwjs';
     }, FLAP_TRANSITION_DURATION * 0.5);
 }
@@ -203,6 +205,7 @@ function onBackgroundClick() {
     
     zwjs.classList.remove('visible');
     charImg.classList.remove('visible');
+    resumeDownload.classList.remove('visible');
     
     clapperboard.classList.remove('closed');
     
@@ -229,6 +232,7 @@ function switchPage(page) {
         connectPage.classList.remove('active');
         zwjs.classList.remove('visible');
         charImg.classList.remove('visible');
+        resumeDownload.classList.remove('visible');
         clapperboard.classList.remove('closed');
         setTimeout(() => {
             showAboutMe();
@@ -240,6 +244,7 @@ function switchPage(page) {
         hideAboutMe();
         zwjs.classList.remove('visible');
         charImg.classList.remove('visible');
+        resumeDownload.classList.remove('visible');
         currentState = 'initial';
     } else if (page === 'more') {
         morePage.classList.add('active');
@@ -248,6 +253,7 @@ function switchPage(page) {
         hideAboutMe();
         zwjs.classList.remove('visible');
         charImg.classList.remove('visible');
+        resumeDownload.classList.remove('visible');
         currentState = 'initial';
     } else {
         // Contact页面
@@ -257,6 +263,7 @@ function switchPage(page) {
         hideAboutMe();
         zwjs.classList.remove('visible');
         charImg.classList.remove('visible');
+        resumeDownload.classList.remove('visible');
         currentState = 'initial';
     }
 }
@@ -277,6 +284,14 @@ clapperboard.addEventListener('click', function(e) {
     onClapperboardClick();
 });
 zwjs.addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+// 简历下载按钮阻止冒泡
+resumeDownload.addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+// 作品集下载按钮阻止冒泡
+document.querySelector('.work-download').addEventListener('click', function(e) {
     e.stopPropagation();
 });
 navItems.forEach(item => {
