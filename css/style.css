@@ -269,7 +269,7 @@ html, body {
 /* ========== 简历下载按钮 ========== */
 .resume-download {
     position: absolute;
-    top: 84%;
+    top: 84.5%;
     right: 23.7%;
     z-index: 4;
     opacity: 0;
