@@ -329,6 +329,8 @@ const galleryConfig = {
     8:  genImages('8', 3, 'png'),
     9:  genImages('9', 6, 'png'),
     10: genImages('10', 4, 'png'),
+    11: genImages('11', 4, 'png'),
+    12: genImages('12', 1, 'png'),
 };
 const galleryOverlay = document.getElementById('galleryOverlay');
 const galleryTrack = document.getElementById('galleryTrack');
@@ -336,8 +338,14 @@ const galleryDots = document.getElementById('galleryDots');
 const galleryClose = document.getElementById('galleryClose');
 const galleryPrev = document.getElementById('galleryPrev');
 const galleryNext = document.getElementById('galleryNext');
+const galleryViewport = document.getElementById('galleryViewport');
 let currentSlideIndex = 0;
 let currentGalleryImages = [];
+// 拖拽滑动相关变量
+let isDragging = false;
+let startDragX = 0;
+let currentDragOffset = 0;
+
 function openGallery(folderId) {
     const images = galleryConfig[folderId];
     if (!images || images.length === 0) {
@@ -378,6 +386,8 @@ function openGallery(folderId) {
 function closeGallery() {
     galleryOverlay.classList.remove('active');
     document.body.style.overflow = '';
+    isDragging = false;
+    currentDragOffset = 0;
 }
 function goToSlide(index) {
     const total = currentGalleryImages.length;
@@ -402,6 +412,51 @@ function nextSlide() {
 function prevSlide() {
     goToSlide(currentSlideIndex - 1);
 }
+
+// ========== 画廊鼠标/触屏拖拽滑动 ==========
+function handleDragStart(e) {
+    if (!galleryOverlay.classList.contains('active')) return;
+    isDragging = true;
+    startDragX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    currentDragOffset = 0;
+    galleryTrack.style.transition = 'none';
+}
+function handleDragMove(e) {
+    if (!isDragging) return;
+    if (e.cancelable) e.preventDefault();
+    const currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    currentDragOffset = currentX - startDragX;
+    const baseTranslate = -currentSlideIndex * 100;
+    const percentOffset = (currentDragOffset / galleryViewport.offsetWidth) * 100;
+    galleryTrack.style.transform = `translateX(${baseTranslate + percentOffset}%)`;
+}
+function handleDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    galleryTrack.style.transition = '';
+    const threshold = galleryViewport.offsetWidth * 0.2; // 滑动阈值：视口宽度20%
+    if (Math.abs(currentDragOffset) > threshold) {
+        if (currentDragOffset > 0) {
+            prevSlide();
+        } else {
+            nextSlide();
+        }
+    } else {
+        goToSlide(currentSlideIndex); // 未达阈值则回弹
+    }
+    currentDragOffset = 0;
+}
+
+// 绑定拖拽事件（鼠标+触屏）
+galleryViewport.addEventListener('mousedown', handleDragStart);
+document.addEventListener('mousemove', handleDragMove);
+document.addEventListener('mouseup', handleDragEnd);
+document.addEventListener('mouseleave', handleDragEnd);
+galleryViewport.addEventListener('touchstart', handleDragStart, { passive: true });
+document.addEventListener('touchmove', handleDragMove, { passive: false });
+document.addEventListener('touchend', handleDragEnd);
+
+// 绑定作品点击事件（包含 Works 页和 More 页所有 work-hover）
 document.querySelectorAll('.work-hover').forEach(function(item) {
     item.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -409,6 +464,7 @@ document.querySelectorAll('.work-hover').forEach(function(item) {
         openGallery(folderId);
     });
 });
+
 galleryClose.addEventListener('click', function(e) {
     e.stopPropagation();
     closeGallery();
