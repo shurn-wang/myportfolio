@@ -16,7 +16,7 @@
         <div class="contact-info" id="contactInfo">
             <p>电话：13062166905</p>
             <p>邮箱：wangshurn@foxmail.com</p>
-            <p>微信：W‑ShuRan</p>
+            <p>微信：W-ShuRan</p>
         </div>
         <!-- 帘子画布 -->
         <canvas id="curtainCanvas"></canvas>
@@ -40,14 +40,12 @@
                 <img src="assets/About/skill.png" alt="skill">
             </div>
         </div>
-
         <!-- 简历下载按钮（与zwjs同步显隐） -->
         <div class="resume-download" id="resumeDownload">
             <p class="resume-title">简历下载</p>
             <a href="assets/About/简历CH.pdf" download="简历CH.pdf" class="resume-link">中文</a>
             <a href="assets/About/简历EN.pdf" download="简历EN.pdf" class="resume-link">英文</a>
         </div>
-
         <!-- char 图片（从右侧划入） -->
         <div class="char-img" id="charImg">
             <img src="assets/About/char.png" alt="char">
@@ -90,7 +88,6 @@
             <div class="work-img work-img-more" id="moreBtn">
                 <div class="morebtn-text">more…</div>
             </div>
-
             <!-- 作品集下载按钮 -->
             <div class="work-download">
                 <a href="assets/Works/作品集.pdf" download="作品集.pdf" class="work-download-link">作品集下载</a>
@@ -98,9 +95,16 @@
         </div>
         <!-- ========== More 页面（点击 more…进入） ========== -->
         <div class="more-page" id="morePage">
-            <div class="more-text">敬请期待</div>
+            <!-- 图片 11：可点击打开画廊 -->
+            <div class="work-img work-img-11 work-hover" data-folder="11">
+                <img src="assets/Works/11.png" alt="作品11">
+            </div>
+            <!-- 图片 12：可点击打开画廊 -->
+            <div class="work-img work-img-12 work-hover" data-folder="12">
+                <img src="assets/Works/12.png" alt="作品12">
+            </div>
         </div>
-        <!-- ========== 画廊灯箱（点击 5~10 图片弹出） ========== -->
+        <!-- ========== 画廊灯箱（点击 5~12 图片弹出） ========== -->
         <div class="gallery-overlay" id="galleryOverlay">
             <!-- 关闭按钮 -->
             <div class="gallery-close" id="galleryClose" title="关闭">×</div>
@@ -130,7 +134,7 @@
             <div class="connect-text">
                 <p>电话：13062166905</p>
                 <p>邮箱：wangshurn@foxmail.com</p>
-                <p>微信：W‑ShuRan</p>
+                <p>微信：W-ShuRan</p>
             </div>
         </div>
         <!-- 右上角导航：替换图片为文本 About / Works / Contact -->
