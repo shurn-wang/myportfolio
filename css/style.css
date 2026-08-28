@@ -265,11 +265,10 @@ html, body {
     50%      { transform: translate(6px, -8px); }
     75%      { transform: translate(7px, 4px); }
 }
-
 /* ========== 简历下载按钮 ========== */
 .resume-download {
     position: absolute;
-    top: 85%;
+    top: 84.8%;
     right: 23.7%;
     z-index: 4;
     opacity: 0;
@@ -278,7 +277,7 @@ html, body {
     font-family: 'msyh', sans-serif;
     color: #ffffff;
     text-align: right;
-    line-height: 1.2;
+    line-height: 1.3;
     letter-spacing: 0.08em;
 }
 .resume-download.visible {
@@ -304,7 +303,6 @@ html, body {
     opacity: 1;
     text-decoration: underline;
 }
-
 /* ========== char 图片 ========== */
 .char-img {
     position: absolute;
@@ -488,7 +486,6 @@ html, body {
 .work-img-more:hover {
     transform: rotate(var(--rotate-angle)) scale(1.1);
 }
-
 /* ========== 新增：Works页面作品集下载按钮 ========== */
 .work-download {
     position: absolute;
@@ -511,9 +508,8 @@ html, body {
     opacity: 1;
     text-decoration: underline;
 }
-
 /* ================================================================ */
-/* ========== More 页面 敬请期待字体改为msyh ========== */
+/* ========== More 页面 作品11、12 ========== */
 /* ================================================================ */
 .more-page {
     position: absolute;
@@ -526,22 +522,44 @@ html, body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
 }
 .more-page.active {
     opacity: 1;
     pointer-events: auto;
 }
-.more-text {
-    font-size: 3rem;
-    color: #ffffff;
-    letter-spacing: 0.5em;
-    text-align: center;
-    user-select: none;
-    font-family:'msyh',sans-serif;
+/* ========== 作品11 所有参数均可调 ========== */
+.work-img-11 {
+    --rotate-angle: 0deg;       /* 旋转角度 */
+    left: 5%;                   /* 水平位置 */
+    top: 20%;                    /* 垂直位置 */
+    width: 16vw;                 /* 图片大小 */
+    opacity: 1;                  /* 透明度 */
+    z-index: 2;
+    transform: translateY(-50%) rotate(var(--rotate-angle));
+    
+    /* 👇 悬停效果可调参数 */
+    --hover-scale: 1.1;         /* 悬停放大倍数：默认1.2，改大=更放大，改小=轻微放大 */
+    --hover-translate-y: 5px;   /* 悬停位移：正值向下移，负值向上移，0=不位移 */
+    --hover-transition: 0.4s;    /* 动画过渡时长 */
 }
+/* ========== 作品12 所有参数均可调 ========== */
+.work-img-12 {
+    --rotate-angle: 0deg;        /* 旋转角度 */
+    left: 25%;                   /* 水平位置 */
+    top: 20%;                    /* 垂直位置 */
+    width: 16vw;                 /* 图片大小 */
+    opacity: 1;                  /* 透明度 */
+    z-index: 2;
+    transform: translateY(-50%) rotate(var(--rotate-angle));
+    
+    /* 👇 悬停效果可调参数 */
+    --hover-scale: 1.1;         /* 悬停放大倍数 */
+    --hover-translate-y: 5px;   /* 悬停位移距离 */
+    --hover-transition: 0.4s;    /* 动画过渡时长 */
+}
+
+
 /* ================================================================ */
 /* ========== 画廊灯箱 ========== */
 /* ================================================================ */
@@ -623,6 +641,11 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: grab;
+    user-select: none;
+}
+.gallery-viewport:active {
+    cursor: grabbing;
 }
 .gallery-track {
     display: flex;
@@ -646,6 +669,7 @@ html, body {
     display: block;
     user-select: none;
     -webkit-user-drag: none;
+    pointer-events: none;
 }
 .gallery-dots {
     position: absolute;
@@ -799,4 +823,17 @@ html, body {
     font-size:1.5vw;
     color:#ffffff;
     letter-spacing:0.06em;
+}
+/* 修复 More 页 11、12 号图悬停偏移问题 */
+.work-img-11:hover,
+.work-img-12:hover {
+    transform: translateY(calc(-50% + var(--hover-translate-y))) rotate(var(--rotate-angle)) scale(var(--hover-scale));
+    z-index: 10;
+}
+
+/* 修复点击按下状态的偏移 */
+.work-img-11:active,
+.work-img-12:active {
+    transform: translateY(-50%) rotate(var(--rotate-angle)) scale(0.95);
+    transition: transform 0.1s ease;
 }
