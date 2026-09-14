@@ -509,7 +509,7 @@ html, body {
     text-decoration: underline;
 }
 /* ================================================================ */
-/* ========== More 页面 作品11、12 ========== */
+/* ========== More 页面 作品11、12、13 ========== */
 /* ================================================================ */
 .more-page {
     position: absolute;
@@ -558,8 +558,36 @@ html, body {
     --hover-translate-y: 5px;   /* 悬停位移距离 */
     --hover-transition: 0.4s;    /* 动画过渡时长 */
 }
-
-
+/* ========== 作品13 所有参数均可调 ========== */
+.work-img-13 {
+    --rotate-angle: 0deg;        /* 旋转角度 */
+    left: 45%;                   /* 水平位置 */
+    top: 20%;                    /* 垂直位置 */
+    width: 16vw;                 /* 图片大小 */
+    opacity: 1;                  /* 透明度 */
+    z-index: 2;
+    transform: translateY(-50%) rotate(var(--rotate-angle));
+    
+    /* 👇 悬停效果可调参数 */
+    --hover-scale: 1.1;         /* 悬停放大倍数 */
+    --hover-translate-y: 5px;   /* 悬停位移距离 */
+    --hover-transition: 0.4s;    /* 动画过渡时长 */
+}
+/* ========== 作品14 所有参数均可调 ========== */
+.work-img-14 {
+    --rotate-angle: 0deg;        /* 旋转角度 */
+    left: 65%;                   /* 水平位置 */
+    top: 20%;                    /* 垂直位置 */
+    width: 16vw;                 /* 图片大小 */
+    opacity: 1;                  /* 透明度 */
+    z-index: 2;
+    transform: translateY(-50%) rotate(var(--rotate-angle));
+    
+    /* 👇 悬停效果可调参数 */
+    --hover-scale: 1.1;         /* 悬停放大倍数 */
+    --hover-translate-y: 5px;   /* 悬停位移距离 */
+    --hover-transition: 0.4s;    /* 动画过渡时长 */
+}
 /* ================================================================ */
 /* ========== 画廊灯箱 ========== */
 /* ================================================================ */
@@ -824,16 +852,20 @@ html, body {
     color:#ffffff;
     letter-spacing:0.06em;
 }
-/* 修复 More 页 11、12 号图悬停偏移问题 */
+/* 修复 More 页 11、12、13 号图悬停偏移问题 */
 .work-img-11:hover,
-.work-img-12:hover {
+.work-img-12:hover,
+.work-img-13:hover,
+.work-img-14:hover {
     transform: translateY(calc(-50% + var(--hover-translate-y))) rotate(var(--rotate-angle)) scale(var(--hover-scale));
     z-index: 10;
 }
 
 /* 修复点击按下状态的偏移 */
 .work-img-11:active,
-.work-img-12:active {
+.work-img-12:active,
+.work-img-13:active,
+.work-img-14:active {
     transform: translateY(-50%) rotate(var(--rotate-angle)) scale(0.95);
     transition: transform 0.1s ease;
 }
