@@ -329,8 +329,10 @@ const galleryConfig = {
     8:  genImages('8', 3, 'png'),
     9:  genImages('9', 6, 'png'),
     10: genImages('10', 4, 'png'),
-    11: genImages('11', 4, 'png'),
-    12: genImages('12', 1, 'png'),
+    11: genImages('11', 5, 'png'),
+    12: genImages('12', 2, 'png'),
+    13: genImages('13', 4, 'png'),
+    14: genImages('14', 1, 'png'),
 };
 const galleryOverlay = document.getElementById('galleryOverlay');
 const galleryTrack = document.getElementById('galleryTrack');
