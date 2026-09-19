@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f2f2f2;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.6.0, SVG Export Plug-In . SVG Version: 1.2.0 Build 709)  -->
+  <g>
+    <g id="_图层_1" data-name="图层_1">
+      <g>
+        <rect x="0" y="29" width="200" height="21.44"/>
+        <polygon class="cls-1" points="171.41 50.43 185.79 50.43 192.98 29 178.6 29 171.41 50.43"/>
+        <polygon class="cls-1" points="147.45 50.43 161.83 50.43 169.02 29 154.64 29 147.45 50.43"/>
+        <polygon class="cls-1" points="123.49 50.43 137.87 50.43 145.06 29 130.68 29 123.49 50.43"/>
+        <polygon class="cls-1" points="99.53 50.43 113.91 50.43 121.1 29 106.72 29 99.53 50.43"/>
+        <polygon class="cls-1" points="75.58 50.43 89.95 50.43 97.14 29 82.76 29 75.58 50.43"/>
+        <polygon class="cls-1" points="52.66 50.43 67.03 50.43 74.22 29 59.84 29 52.66 50.43"/>
+        <polygon class="cls-1" points="27.66 50.43 42.03 50.43 49.22 29 34.84 29 27.66 50.43"/>
+      </g>
+    </g>
+  </g>
+</svg>
