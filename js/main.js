@@ -29,7 +29,8 @@ const OPEN_DURATION = 1800;
 const TOTAL_DURATION = LIFT_DELAY + OPEN_DURATION;
 const CLAPPER_DROP_DURATION = 1600;
 const FLAP_TRANSITION_DURATION = 400;
-// 帘子配置
+
+// 帘子基础配置（具体像素在resize中动态计算）
 const config = {
     gapXRatio: 0.72,
     gapTopWidth: 2,
@@ -38,27 +39,46 @@ const config = {
     liftHeight: 60,
     curveIntensity: 0.35
 };
+
+// resize防抖计时器
+let resizeTimer = null;
+
 function resize() {
     width = window.innerWidth;
     height = window.innerHeight;
-    canvas.width = width * window.devicePixelRatio;
-    canvas.height = height * window.devicePixelRatio;
+    const dpr = window.devicePixelRatio || 1;
+
+    // 修复Canvas高分屏模糊 + 避免缩放累积问题
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-    
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // ========== 动态适配帘子参数 ==========
+    // 横屏缝隙偏右（原设计），竖屏自动居中
+    config.gapXRatio = width < height ? 0.5 : 0.72;
+    // 底部缝隙宽度：视口宽度4%，限制40-120px
+    config.gapBottomWidth = Math.min(Math.max(width * 0.04, 40), 120);
+    // 帘子抬起高度：视口高度6%，限制30-80px
+    config.liftHeight = Math.min(Math.max(height * 0.06, 30), 80);
+    // 顶部缝隙：最小2px
+    config.gapTopWidth = Math.max(2, width * 0.001);
+
     if (!isOpened) {
         drawCurtains(0);
     } else {
         drawCurtains(1);
     }
 }
+
 function easeOutCubic(t) {
     return 1 - Math.pow(1 - t, 3);
 }
 function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
+
 function drawCurtains(progress) {
     ctx.clearRect(0, 0, width, height);
     const gapCenterX = width * config.gapXRatio;
@@ -73,10 +93,15 @@ function drawCurtains(progress) {
         const t = (progress - LIFT_DELAY / TOTAL_DURATION) / (OPEN_DURATION / TOTAL_DURATION);
         openProgress = easeInOutCubic(t);
     }
-    const openOffset = openProgress * width * 0.6;
+
+    // 超宽屏自动缩小打开幅度，避免空白过大
+    const openRatio = width > 2000 ? 0.5 : 0.6;
+    const openOffset = openProgress * width * openRatio;
+
     drawLeftCurtain(gapCenterX, liftProgress, openOffset);
     drawRightCurtain(gapCenterX, openOffset);
 }
+
 function drawLeftCurtain(gapCenterX, liftProgress, openOffset) {
     const topGap = config.gapTopWidth / 2;
     const bottomGap = config.gapBottomWidth / 2;
@@ -106,6 +131,7 @@ function drawLeftCurtain(gapCenterX, liftProgress, openOffset) {
     ctx.fill();
     addCurtainShadow(gapCenterX - topGap + moveX, 0, endX, endY, 'left');
 }
+
 function drawRightCurtain(gapCenterX, openOffset) {
     const topGap = config.gapTopWidth / 2;
     const bottomGap = config.gapBottomWidth / 2;
@@ -128,6 +154,7 @@ function drawRightCurtain(gapCenterX, openOffset) {
     ctx.fill();
     addCurtainShadow(gapCenterX + topGap + moveX, 0, endX, endY, 'right');
 }
+
 function addCurtainShadow(x1, y1, x2, y2, side) {
     const gradient = ctx.createLinearGradient(
         side === 'left' ? x1 : x1 - 30,
@@ -161,6 +188,7 @@ function addCurtainShadow(x1, y1, x2, y2, side) {
     ctx.closePath();
     ctx.fill();
 }
+
 function animate(timestamp) {
     if (!startTime) startTime = timestamp;
     const elapsed = timestamp - startTime;
@@ -180,6 +208,7 @@ function animate(timestamp) {
         animationId = requestAnimationFrame(animate);
     }
 }
+
 function showAboutMe() {
     aboutMe.classList.add('visible');
     currentState = 'aboutMe';
@@ -187,6 +216,7 @@ function showAboutMe() {
 function hideAboutMe() {
     aboutMe.classList.remove('visible');
 }
+
 function onClapperboardClick() {
     if (currentPage !== 'About' || currentState !== 'aboutMe') return;
     
@@ -200,6 +230,7 @@ function onClapperboardClick() {
         currentState = 'zwjs';
     }, FLAP_TRANSITION_DURATION * 0.5);
 }
+
 function onBackgroundClick() {
     if (currentPage !== 'About' || currentState !== 'zwjs') return;
     
@@ -213,6 +244,7 @@ function onBackgroundClick() {
         showAboutMe();
     }, FLAP_TRANSITION_DURATION * 0.5);
 }
+
 function updateNavActive(page) {
     navItems.forEach(item => {
         if (item.dataset.page === page) {
@@ -222,6 +254,7 @@ function updateNavActive(page) {
         }
     });
 }
+
 function switchPage(page) {
     if (page === currentPage) return;
     currentPage = page;
@@ -267,6 +300,7 @@ function switchPage(page) {
         currentState = 'initial';
     }
 }
+
 function openCurtain() {
     if (isOpened) return;
     isOpened = true;
@@ -278,6 +312,7 @@ function openCurtain() {
     startTime = null;
     animationId = requestAnimationFrame(animate);
 }
+
 canvas.addEventListener('click', openCurtain);
 clapperboard.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -311,8 +346,15 @@ connectClapperboard.addEventListener('click', function(e) {
 document.addEventListener('click', function(e) {
     onBackgroundClick();
 });
-window.addEventListener('resize', resize);
+
+// resize防抖监听
+window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 100);
+});
+
 resize();
+
 // ==========画廊【路径修改 assets/Works】==========
 function genImages(folder, count, ext) {
     ext = ext || 'jpg';
@@ -385,12 +427,14 @@ function openGallery(folderId) {
     galleryOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
+
 function closeGallery() {
     galleryOverlay.classList.remove('active');
     document.body.style.overflow = '';
     isDragging = false;
     currentDragOffset = 0;
 }
+
 function goToSlide(index) {
     const total = currentGalleryImages.length;
     if (total === 0) return;
@@ -408,6 +452,7 @@ function goToSlide(index) {
         }
     });
 }
+
 function nextSlide() {
     goToSlide(currentSlideIndex + 1);
 }
@@ -448,7 +493,6 @@ function handleDragEnd() {
     }
     currentDragOffset = 0;
 }
-
 // 绑定拖拽事件（鼠标+触屏）
 galleryViewport.addEventListener('mousedown', handleDragStart);
 document.addEventListener('mousemove', handleDragMove);
@@ -466,7 +510,6 @@ document.querySelectorAll('.work-hover').forEach(function(item) {
         openGallery(folderId);
     });
 });
-
 galleryClose.addEventListener('click', function(e) {
     e.stopPropagation();
     closeGallery();
