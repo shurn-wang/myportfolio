@@ -55,7 +55,7 @@ html, body {
     height: 100vh;
     background: #bb240A;
 }
-/* ========== 左侧 WELCOME文字（替换PORTFOLIO.png） ========== */
+/* ========== 左侧 WELCOME文字 ========== */
 .portfolio {
     position: absolute;
     left: 5%;
@@ -67,7 +67,7 @@ html, body {
 }
 .welcome-text{
     font-family: 'BOOKOS', sans-serif;
-    font-size: clamp(48px,5vw,120px); /* 最小值,动态值,最大值 */
+    font-size: clamp(32px, 5vw, 120px);
     color:#131313;
     letter-spacing:0.02em;
 }
@@ -75,7 +75,7 @@ html, body {
     opacity: 0;
     pointer-events: none;
 }
-/* ========== 右下角联系文字 字体改为msyh ========== */
+/* ========== 右下角联系文字 ========== */
 .contact-info {
     position: absolute;
     right: 1%;
@@ -170,7 +170,7 @@ html, body {
         transform: rotate(-35deg);
     }
 }
-/* ========== About me文字（替换About me.png，传奇特战体） ========== */
+/* ========== About me文字 ========== */
 .about-me {
     position: absolute;
     top: 66%;
@@ -183,7 +183,7 @@ html, body {
 }
 .aboutme-text{
     font-family:'ChuanQiTeZhan',sans-serif;
-    font-size:2.7vw;
+    font-size: clamp(24px, 2.7vw, 48px);
     color:#ffffff;
     letter-spacing:0.08em;
 }
@@ -285,14 +285,14 @@ html, body {
     pointer-events: auto;
 }
 .resume-title {
-    font-size: 1.1vw;
+    font-size: clamp(12px, 1.1vw, 18px);
     margin-bottom: 6px;
     opacity: 0.92;
     user-select: none;
 }
 .resume-link {
     display: block;
-    font-size: 1vw;
+    font-size: clamp(11px, 1vw, 16px);
     color: #ffffff;
     text-decoration: none;
     opacity: 0.85;
@@ -361,45 +361,46 @@ html, body {
     height: 100%;
     object-fit: contain;
 }
+/* 背景大图改为居中覆盖，适配任意屏幕比例 */
 .work-img-1 {
     --rotate-angle: 5deg;
-    left: -40%;
-    top: 98%;
-    width: 100vw;
-    height: 100vh;
+    left: 6%;
+    top: 157%;
+    width: 120vw;
+    height: 120vh;
     opacity: 1;
     z-index: 2;
-    transform: rotate(var(--rotate-angle));
+    transform: translate(-50%, -50%) rotate(var(--rotate-angle));
 }
 .work-img-2 {
     --rotate-angle: -1.5deg;
-    left: -10%;
-    top: -98%;
-    width: 110vw;
-    height: 110vh;
+    left: 50%;
+    top: -54%;
+    width: 130vw;
+    height: 130vh;
     opacity: 1;
     z-index: 3;
-    transform: rotate(var(--rotate-angle));
+    transform: translate(-50%, -50%) rotate(var(--rotate-angle));
 }
 .work-img-3 {
     --rotate-angle: 1deg;
-    left: 0%;
-    top: -100%;
-    width: 115vw;
-    height: 115vh;
+    left: 50%;
+    top: -56%;
+    width: 140vw;
+    height: 140vh;
     opacity: 1;
     z-index: 1;
-    transform: rotate(var(--rotate-angle));
+    transform: translate(-50%, -50%) rotate(var(--rotate-angle));
 }
 .work-img-4 {
     --rotate-angle: 1deg;
-    left: -5%;
-    top: -108%;
-    width: 115vw;
-    height: 115vh;
+    left: 50%;
+    top: -64%;
+    width: 140vw;
+    height: 140vh;
     opacity: 1;
     z-index: 4;
-    transform: rotate(var(--rotate-angle));
+    transform: translate(-50%, -50%) rotate(var(--rotate-angle));
 }
 .work-hover {
     --hover-scale: 1.2;
@@ -466,7 +467,7 @@ html, body {
     z-index: 4;
     transform: rotate(var(--rotate-angle));
 }
-/* more…文字替换more.png，传奇特战体 */
+/* more…文字 */
 .work-img-more {
     --rotate-angle: 0deg;
     left: 88%;
@@ -480,13 +481,13 @@ html, body {
 }
 .morebtn-text{
     font-family:'ChuanQiTeZhan',sans-serif;
-    font-size:2.4vw;
+    font-size: clamp(20px, 2.4vw, 40px);
     color:#ffffff;
 }
 .work-img-more:hover {
     transform: rotate(var(--rotate-angle)) scale(1.1);
 }
-/* ========== 新增：Works页面作品集下载按钮 ========== */
+/* ========== Works页面作品集下载按钮 ========== */
 .work-download {
     position: absolute;
     right: 6.5%;
@@ -495,7 +496,7 @@ html, body {
     font-family: 'msyh', sans-serif;
 }
 .work-download-link {
-    font-size: 1vw;
+    font-size: clamp(11px, 1vw, 16px);
     color: #ffffff;
     text-decoration: none;
     opacity: 0.85;
@@ -528,65 +529,53 @@ html, body {
     opacity: 1;
     pointer-events: auto;
 }
-/* ========== 作品11 所有参数均可调 ========== */
 .work-img-11 {
-    --rotate-angle: 0deg;       /* 旋转角度 */
-    left: 5%;                   /* 水平位置 */
-    top: 20%;                    /* 垂直位置 */
-    width: 16vw;                 /* 图片大小 */
-    opacity: 1;                  /* 透明度 */
+    --rotate-angle: 0deg;
+    left: 5%;
+    top: 20%;
+    width: 16vw;
+    opacity: 1;
     z-index: 2;
     transform: translateY(-50%) rotate(var(--rotate-angle));
-    
-    /* 👇 悬停效果可调参数 */
-    --hover-scale: 1.1;         /* 悬停放大倍数：默认1.2，改大=更放大，改小=轻微放大 */
-    --hover-translate-y: 5px;   /* 悬停位移：正值向下移，负值向上移，0=不位移 */
-    --hover-transition: 0.4s;    /* 动画过渡时长 */
+    --hover-scale: 1.1;
+    --hover-translate-y: 5px;
+    --hover-transition: 0.4s;
 }
-/* ========== 作品12 所有参数均可调 ========== */
 .work-img-12 {
-    --rotate-angle: 0deg;        /* 旋转角度 */
-    left: 25%;                   /* 水平位置 */
-    top: 20%;                    /* 垂直位置 */
-    width: 16vw;                 /* 图片大小 */
-    opacity: 1;                  /* 透明度 */
+    --rotate-angle: 0deg;
+    left: 25%;
+    top: 20%;
+    width: 16vw;
+    opacity: 1;
     z-index: 2;
     transform: translateY(-50%) rotate(var(--rotate-angle));
-    
-    /* 👇 悬停效果可调参数 */
-    --hover-scale: 1.1;         /* 悬停放大倍数 */
-    --hover-translate-y: 5px;   /* 悬停位移距离 */
-    --hover-transition: 0.4s;    /* 动画过渡时长 */
+    --hover-scale: 1.1;
+    --hover-translate-y: 5px;
+    --hover-transition: 0.4s;
 }
-/* ========== 作品13 所有参数均可调 ========== */
 .work-img-13 {
-    --rotate-angle: 0deg;        /* 旋转角度 */
-    left: 45%;                   /* 水平位置 */
-    top: 20%;                    /* 垂直位置 */
-    width: 16vw;                 /* 图片大小 */
-    opacity: 1;                  /* 透明度 */
+    --rotate-angle: 0deg;
+    left: 45%;
+    top: 20%;
+    width: 16vw;
+    opacity: 1;
     z-index: 2;
     transform: translateY(-50%) rotate(var(--rotate-angle));
-    
-    /* 👇 悬停效果可调参数 */
-    --hover-scale: 1.1;         /* 悬停放大倍数 */
-    --hover-translate-y: 5px;   /* 悬停位移距离 */
-    --hover-transition: 0.4s;    /* 动画过渡时长 */
+    --hover-scale: 1.1;
+    --hover-translate-y: 5px;
+    --hover-transition: 0.4s;
 }
-/* ========== 作品14 所有参数均可调 ========== */
 .work-img-14 {
-    --rotate-angle: 0deg;        /* 旋转角度 */
-    left: 65%;                   /* 水平位置 */
-    top: 20%;                    /* 垂直位置 */
-    width: 16vw;                 /* 图片大小 */
-    opacity: 1;                  /* 透明度 */
+    --rotate-angle: 0deg;
+    left: 65%;
+    top: 20%;
+    width: 16vw;
+    opacity: 1;
     z-index: 2;
     transform: translateY(-50%) rotate(var(--rotate-angle));
-    
-    /* 👇 悬停效果可调参数 */
-    --hover-scale: 1.1;         /* 悬停放大倍数 */
-    --hover-translate-y: 5px;   /* 悬停位移距离 */
-    --hover-transition: 0.4s;    /* 动画过渡时长 */
+    --hover-scale: 1.1;
+    --hover-translate-y: 5px;
+    --hover-transition: 0.4s;
 }
 /* ================================================================ */
 /* ========== 画廊灯箱 ========== */
@@ -661,9 +650,10 @@ html, body {
 }
 .gallery-viewport {
     position: relative;
-    width: 70vw;
+    width: 85vw;
     max-width: 900px;
     height: 70vh;
+    max-height: 80vh;
     overflow: hidden;
     z-index: 101;
     display: flex;
@@ -812,16 +802,15 @@ html, body {
     text-align: left;
     color: #ffffff;
     font-family: 'msyh', "Microsoft YaHei", sans-serif;
-    font-size: 1.2rem;
-    line-height: 2;
+    font-size: clamp(14px, 1.2rem, 20px);
+    line-height: 2.5;
     z-index: 4;
     letter-spacing: 0.05em;
-    line-height: 2.5;
 }
 .connect-text p {
     margin: 0;
 }
-/* ========== 右上角导航：文字导航 BOOKOS字体 ========== */
+/* ========== 右上角导航 ========== */
 .nav {
     position: absolute;
     top: 3%;
@@ -848,11 +837,11 @@ html, body {
 }
 .nav-label{
     font-family:'BOOKOS',sans-serif;
-    font-size:1.5vw;
+    font-size: clamp(14px, 1.5vw, 24px);
     color:#ffffff;
     letter-spacing:0.06em;
 }
-/* 修复 More 页 11、12、13 号图悬停偏移问题 */
+/* 修复 More 页作品悬停偏移问题 */
 .work-img-11:hover,
 .work-img-12:hover,
 .work-img-13:hover,
@@ -860,7 +849,6 @@ html, body {
     transform: translateY(calc(-50% + var(--hover-translate-y))) rotate(var(--rotate-angle)) scale(var(--hover-scale));
     z-index: 10;
 }
-
 /* 修复点击按下状态的偏移 */
 .work-img-11:active,
 .work-img-12:active,
@@ -868,4 +856,85 @@ html, body {
 .work-img-14:active {
     transform: translateY(-50%) rotate(var(--rotate-angle)) scale(0.95);
     transition: transform 0.1s ease;
+}
+
+/* ================ 平板适配（≤1024px） ================ */
+@media (max-width: 1024px) {
+    .nav { gap: 18px; top: 2%; right: 3%; }
+    
+    .clapperboard { width: 18vw; max-width: 180px; }
+    .zwjs { width: 65vw; top: 18%; }
+    .char-img { width: 22vw; top: 62%; }
+    .resume-download { top: 87%; right: 18%; }
+
+    .work-img-5, .work-img-6, .work-img-7,
+    .work-img-8, .work-img-9, .work-img-10 { width: 11vw; }
+    .work-img-more { width: 8vw; }
+
+    .work-img-11, .work-img-12,
+    .work-img-13, .work-img-14 { width: 20vw; }
+
+    .connect-char2 { width: 40vw; left: 10%; }
+    .connect-clapperboard { width: 35vw; left: 62%; }
+    .connect-text { left: 62%; font-size: 1rem; }
+}
+
+/* ================ 竖屏/移动端适配 ================ */
+@media (orientation: portrait) and (max-width: 768px) {
+    /* 导航顶部居中 */
+    .nav {
+        right: auto; left: 50%;
+        transform: translateX(-50%);
+        top: 2%; gap: 20px;
+    }
+
+    /* About页重排 */
+    .portfolio {
+        left: 50%; top: 35%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    .clapperboard { top: 45%; width: 35vw; max-width: 160px; }
+    .about-me { top: 58%; }
+    .aboutme-text { font-size: clamp(28px, 6vw, 40px); }
+    .zwjs { width: 88vw; top: 15%; }
+    .char-img { width: 38vw; top: 72%; right: 1%; }
+    .resume-download { top: 90%; right: 8%; }
+
+    /* Works页：两行三列 */
+    .work-img-5 { left: 8%;  top: 18%; width: 22vw; }
+    .work-img-6 { left: 39%; top: 18%; width: 22vw; }
+    .work-img-7 { left: 70%; top: 18%; width: 22vw; }
+    .work-img-8 { left: 8%;  top: 50%; width: 22vw; }
+    .work-img-9 { left: 39%; top: 50%; width: 22vw; }
+    .work-img-10 { left: 70%; top: 50%; width: 22vw; }
+    .work-img-more { right: 5%; bottom: 8%; left: auto; top: auto; width: 18vw; }
+    .work-download { right: 5%; bottom: 2%; }
+
+    /* More页：两行两列 */
+    .work-img-11 { left: 10%; top: 22%; width: 35vw; }
+    .work-img-12 { left: 55%; top: 22%; width: 35vw; }
+    .work-img-13 { left: 10%; top: 65%; width: 35vw; }
+    .work-img-14 { left: 55%; top: 65%; width: 35vw; }
+
+    /* Contact页：上下布局 */
+    .connect-char2 {
+        width: 65vw; left: 50%; top: 25%;
+        transform: translate(-50%, -50%);
+    }
+    .connect-clapperboard {
+        width: 55vw; left: 50%; top: 62%;
+        transform: translate(-50%, -50%);
+    }
+    .connect-text {
+        left: 50%; top: 62%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+    /* 画廊全屏优化 */
+    .gallery-viewport { width: 92vw; height: 75vh; }
+    .gallery-close { top: 16px; right: 20px; }
+    .gallery-prev { left: 12px; }
+    .gallery-next { right: 12px; }
 }
