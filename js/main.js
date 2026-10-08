@@ -60,8 +60,8 @@ function resize() {
     config.gapXRatio = width < height ? 0.5 : 0.72;
     // 底部缝隙宽度：视口宽度4%，限制40-120px
     config.gapBottomWidth = Math.min(Math.max(width * 0.04, 40), 120);
-    // 帘子抬起高度：视口高度6%，限制30-80px
-    config.liftHeight = Math.min(Math.max(height * 0.06, 30), 80);
+    // 帘子抬起高度：视口高度10%，限制30-80px
+    config.liftHeight = Math.min(Math.max(height * 0.10, 30), 80);
     // 顶部缝隙：最小2px
     config.gapTopWidth = Math.max(2, width * 0.001);
 
