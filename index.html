@@ -88,29 +88,50 @@
             <div class="work-img work-img-more" id="moreBtn">
                 <div class="morebtn-text">more…</div>
             </div>
-            <!-- 作品集下载按钮 -->
-            <div class="work-download">
-                <a href="assets/Works/作品集.pdf" download="作品集.pdf" class="work-download-link">作品集下载</a>
-            </div>
         </div>
-        <!-- ========== More 页面（点击 more…进入） ========== -->
+        <!-- ========== More 页面（点击 more…进入，胶卷卡片轮播） ========== -->
         <div class="more-page" id="morePage">
-            <!-- 图片 11：可点击打开画廊 -->
-            <div class="work-img work-img-11 work-hover" data-folder="11">
-                <img src="assets/Works/11.png" alt="作品11">
+            <div class="more-carousel" id="moreCarousel">
+                <div class="more-track" id="moreTrack">
+                    <div class="work-img work-img-11 more-card work-hover" data-folder="11">
+                        <img src="assets/Works/11.png" alt="作品11">
+                    </div>
+                    <div class="work-img work-img-12 more-card work-hover" data-folder="12">
+                        <img src="assets/Works/12.png" alt="作品12">
+                    </div>
+                    <div class="work-img work-img-13 more-card work-hover" data-folder="13">
+                        <img src="assets/Works/13.png" alt="作品13">
+                    </div>
+                    <div class="work-img work-img-14 more-card work-hover" data-folder="14">
+                        <img src="assets/Works/14.png" alt="作品14">
+                    </div>
+                    <div class="work-img work-img-15 more-card work-hover" data-folder="15">
+                        <img src="assets/Works/15.png" alt="作品15">
+                    </div>
+                    <div class="work-img work-img-16 more-card work-hover" data-folder="16">
+                        <img src="assets/Works/16.png" alt="作品16">
+                    </div>
+                    <div class="work-img work-img-17 more-card work-hover" data-folder="17">
+                        <img src="assets/Works/17.png" alt="作品17">
+                    </div>
+                    <div class="work-img work-img-18 more-card work-hover" data-folder="18">
+                        <img src="assets/Works/18.png" alt="作品18">
+                    </div>
+                    <div class="work-img work-img-19 more-card work-hover" data-folder="19">
+                        <img src="assets/Works/19.png" alt="作品19">
+                    </div>
+                    <div class="work-img work-img-20 more-card work-hover" data-folder="20">
+                        <img src="assets/Works/20.png" alt="作品20">
+                    </div>
+                    <div class="work-img work-img-21 more-card work-hover" data-folder="21">
+                        <img src="assets/Works/21.png" alt="作品21">
+                    </div>
+                </div>
             </div>
-            <!-- 图片 12：可点击打开画廊 -->
-            <div class="work-img work-img-12 work-hover" data-folder="12">
-                <img src="assets/Works/12.png" alt="作品12">
-            </div>
-              <!-- 图片 13：可点击打开画廊 -->
-            <div class="work-img work-img-13 work-hover" data-folder="13">
-                <img src="assets/Works/13.png" alt="作品13">
-            </div>
-             <!-- 图片 14：可点击打开画廊 -->
-            <div class="work-img work-img-14 work-hover" data-folder="14">
-                <img src="assets/Works/14.png" alt="作品14">
-            </div>
+            <!-- 轮播控制：左右箭头 / 页码 -->
+            <div class="more-nav more-prev" id="morePrev" title="上一张" role="button" tabindex="0">‹</div>
+            <div class="more-nav more-next" id="moreNext" title="下一张" role="button" tabindex="0">›</div>
+            <div class="more-counter" id="moreCounter">01 / 11</div>
         </div>
         <!-- ========== 画廊灯箱（点击 5~12 图片弹出） ========== -->
         <div class="gallery-overlay" id="galleryOverlay">
