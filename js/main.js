@@ -60,8 +60,8 @@ function resize() {
     config.gapXRatio = width < height ? 0.5 : 0.72;
     // 底部缝隙宽度：视口宽度4%，限制40-120px
     config.gapBottomWidth = Math.min(Math.max(width * 0.04, 40), 120);
-    // 帘子抬起高度：视口高度10%，限制30-80px
-    config.liftHeight = Math.min(Math.max(height * 0.10, 30), 80);
+    // 帘子抬起高度：视口高度6%，限制30-80px
+    config.liftHeight = Math.min(Math.max(height * 0.1, 30), 80);
     // 顶部缝隙：最小2px
     config.gapTopWidth = Math.max(2, width * 0.001);
 
@@ -255,6 +255,9 @@ function updateNavActive(page) {
     });
 }
 
+// 由下方轮播模块赋值，切页/尺寸变化时重新居中
+let relayoutMoreCarousel = function () {};
+
 function switchPage(page) {
     if (page === currentPage) return;
     currentPage = page;
@@ -281,6 +284,7 @@ function switchPage(page) {
         currentState = 'initial';
     } else if (page === 'more') {
         morePage.classList.add('active');
+        relayoutMoreCarousel();
         workPage.classList.remove('active');
         connectPage.classList.remove('active');
         hideAboutMe();
@@ -323,10 +327,6 @@ zwjs.addEventListener('click', function(e) {
 });
 // 简历下载按钮阻止冒泡
 resumeDownload.addEventListener('click', function(e) {
-    e.stopPropagation();
-});
-// 作品集下载按钮阻止冒泡
-document.querySelector('.work-download').addEventListener('click', function(e) {
     e.stopPropagation();
 });
 navItems.forEach(item => {
@@ -373,8 +373,15 @@ const galleryConfig = {
     10: genImages('10', 4, 'png'),
     11: genImages('11', 5, 'png'),
     12: genImages('12', 2, 'png'),
-    13: genImages('13', 4, 'png'),
+    13: genImages('13', 5, 'png'),
     14: genImages('14', 1, 'png'),
+    15: genImages('15', 3, 'png'),
+    16: genImages('16', 3, 'png'),
+    17: genImages('17', 5, 'png'),
+    18: genImages('18', 7, 'png'),
+    19: genImages('19', 3, 'png'),
+    20: genImages('20', 6, 'png'),
+    21: genImages('21', 4, 'png'),
 };
 const galleryOverlay = document.getElementById('galleryOverlay');
 const galleryTrack = document.getElementById('galleryTrack');
@@ -502,11 +509,16 @@ galleryViewport.addEventListener('touchstart', handleDragStart, { passive: true 
 document.addEventListener('touchmove', handleDragMove, { passive: false });
 document.addEventListener('touchend', handleDragEnd);
 
+// 拖拽轮播期间置为 true，避免松手瞬间误触发画廊
+let moreCarouselDragged = false;
+
 // 绑定作品点击事件（包含 Works 页和 More 页所有 work-hover）
 document.querySelectorAll('.work-hover').forEach(function(item) {
     item.addEventListener('click', function(e) {
         e.stopPropagation();
+        if (moreCarouselDragged) return;
         const folderId = this.dataset.folder;
+        if (!folderId) return;
         openGallery(folderId);
     });
 });
@@ -537,3 +549,174 @@ document.addEventListener('keydown', function(e) {
         closeGallery();
     }
 });
+
+// ========== More 页胶卷卡片轮播（首尾相接的无限循环） ==========
+(function () {
+    const carousel = document.getElementById('moreCarousel');
+    const track = document.getElementById('moreTrack');
+    const counter = document.getElementById('moreCounter');
+    const prevBtn = document.getElementById('morePrev');
+    const nextBtn = document.getElementById('moreNext');
+    if (!carousel || !track) return;
+
+    const TRANSITION = 'transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1)';
+
+    // 原始卡片（作品 11~21）
+    const originals = Array.prototype.slice.call(track.querySelectorAll('.work-img'));
+    const total = originals.length;
+    if (!total) return;
+
+    // 首、尾各复制一整套，让最后一张的右侧就是第一张，形成无缝循环
+    function makeClone(node) {
+        const clone = node.cloneNode(true);
+        clone.classList.remove('is-active');
+        clone.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (moreCarouselDragged) return;
+            const folder = clone.dataset.folder;
+            if (folder) openGallery(folder);
+        });
+        return clone;
+    }
+
+    const headFrag = document.createDocumentFragment();
+    originals.forEach(function (card) { headFrag.appendChild(makeClone(card)); });
+    track.insertBefore(headFrag, originals[0]);
+
+    const tailFrag = document.createDocumentFragment();
+    originals.forEach(function (card) { tailFrag.appendChild(makeClone(card)); });
+    track.appendChild(tailFrag);
+
+    // 轨道现在为 [复制套][原套][复制套]，从中间那套的第一张开始
+    const cards = Array.prototype.slice.call(track.querySelectorAll('.work-img'));
+    let index = total;
+    let currentOffset = 0;
+    let dragging = false;
+    let dragStartX = 0;
+    let dragOriginOffset = 0;
+    let dragLastDx = 0;
+    let wheelLocked = false;
+
+    function cardStep() {
+        const gap = parseFloat(getComputedStyle(track).columnGap || 0) || 0;
+        return cards[0].offsetWidth + gap;
+    }
+
+    function offsetFor(i) {
+        const card = cards[i];
+        return carousel.clientWidth / 2 - (card.offsetLeft + card.offsetWidth / 2);
+    }
+
+    function paint(animate) {
+        currentOffset = offsetFor(index);
+        track.style.transition = animate === false ? 'none' : TRANSITION;
+        track.style.transform = 'translate3d(' + currentOffset + 'px, 0, 0)';
+        cards.forEach(function (c, i) {
+            c.classList.toggle('is-active', i === index);
+        });
+        if (counter) {
+            const real = ((index % total) + total) % total;
+            const pad = function (n) { return n < 10 ? '0' + n : String(n); };
+            counter.textContent = pad(real + 1) + ' / ' + pad(total);
+        }
+    }
+
+    // 滑出边界后，把索引平移回中间那套（画面完全等位，用户看不到跳动）
+    function normalize() {
+        let changed = false;
+        while (index < total) { index += total; changed = true; }
+        while (index >= total * 2) { index -= total; changed = true; }
+        if (changed) paint(false);
+    }
+
+    track.addEventListener('transitionend', function (e) {
+        if (e.target !== track || e.propertyName !== 'transform') return;
+        normalize();
+    });
+
+    function go(i) {
+        index = Math.max(0, Math.min(cards.length - 1, i));
+        paint(true);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        go(index - 1);
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        go(index + 1);
+    });
+
+    // 拖拽 / 滑动切换
+    // 不做 setPointerCapture：一旦捕获，浏览器会把 click 派发到容器而非卡片，
+    // 卡片就点不开画廊了。改为在 window 上监听 move/up。
+    carousel.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        dragging = true;
+        dragStartX = e.clientX;
+        dragOriginOffset = currentOffset;
+        dragLastDx = 0;
+        moreCarouselDragged = false;
+        track.style.transition = 'none';
+        carousel.classList.add('dragging');
+    });
+
+    window.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        const dx = e.clientX - dragStartX;
+        dragLastDx = dx;
+        if (Math.abs(dx) > 6) moreCarouselDragged = true;
+        track.style.transform = 'translate3d(' + (dragOriginOffset + dx) + 'px, 0, 0)';
+    });
+
+    function endDrag() {
+        if (!dragging) return;
+        dragging = false;
+        carousel.classList.remove('dragging');
+        const step = cardStep();
+        if (Math.abs(dragLastDx) > Math.max(40, step * 0.16)) {
+            go(index + (dragLastDx < 0 ? 1 : -1));
+        } else {
+            paint(true);
+        }
+        if (moreCarouselDragged) {
+            // 松手后浏览器还会派发一次 click，等它过去再解锁
+            setTimeout(function () { moreCarouselDragged = false; }, 80);
+        }
+        dragLastDx = 0;
+    }
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+
+    // 滚轮翻卡
+    carousel.addEventListener('wheel', function (e) {
+        const d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        if (Math.abs(d) < 12) return;
+        e.preventDefault();
+        if (wheelLocked) return;
+        wheelLocked = true;
+        go(index + (d > 0 ? 1 : -1));
+        setTimeout(function () { wheelLocked = false; }, 420);
+    }, { passive: false });
+
+    // 键盘左右键
+    document.addEventListener('keydown', function (e) {
+        if (!morePage.classList.contains('active')) return;
+        if (galleryOverlay.classList.contains('active')) return;
+        if (e.key === 'ArrowLeft') go(index - 1);
+        else if (e.key === 'ArrowRight') go(index + 1);
+    });
+
+    // 尺寸变化后重新居中
+    let moreResizeTimer = null;
+    window.addEventListener('resize', function () {
+        clearTimeout(moreResizeTimer);
+        moreResizeTimer = setTimeout(function () { paint(false); }, 120);
+    });
+
+    relayoutMoreCarousel = function () { paint(false); };
+
+    paint(false);
+    window.addEventListener('load', function () { paint(false); });
+})();
